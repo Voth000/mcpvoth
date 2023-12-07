@@ -247,4 +247,4 @@ function handleCommand(command) {
 
 
 document.getElementById("again").addEventListener('click', function () {
-    window.location.href = 'mcp.html';     });
+    window.location.href = 'index.html';     });
