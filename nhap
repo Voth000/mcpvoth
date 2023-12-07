@@ -1,0 +1,196 @@
+let i = 0;
+    let container = document.getElementById("type");
+    let gameState = "start";
+    let hasGem = false;
+    let thefools = false;
+
+    const gameStateText = {
+        "start": "",
+        "roomDescription": "You are in a small room with a door to the north. What will you do?",
+        "escaped": "Thanks for playing!"
+    };
+
+    gameStateText["start"] = "Welcome to 'Life: Rise of the Artist'. Please note: This game's narrative and storyline are constructed by an AI typewriter, utilizing real-world data from various artists. As a result, you may notice similarities with well-known individuals. However, any resemblance to real persons is coincidental and not intended to be taken seriously. Now, lets proceed—please select your default character.";
+
+    let gemObtained = false;
+    let thefoolsilver = false;
+
+
+    function typeWriter() {
+        if (i < gameStateText[gameState].length) {
+            container.innerHTML += gameStateText[gameState].charAt(i);
+            i++;
+
+            let delay = 100;
+
+            if (gameStateText[gameState].charAt(i - 1) === '.' &&
+                gameStateText[gameState].charAt(i - 2) === '.' &&
+                gameStateText[gameState].charAt(i - 3) === '.') {
+                delay = Math.random() * 5000 + 2000; // Add a random delay between 2 and 7 seconds (5+2=7)
+            }
+
+            if (i === gameStateText["start"].length) {
+                // Show the textarea after displaying the entire "start" message
+                const userInput = document.getElementById("stylebox1");
+                userInput.style.display = "grid";
+                userInput.focus();
+            }
+
+            setTimeout(typeWriter, delay);
+        }
+    }
+
+    typeWriter();
+
+    const userInput = document.getElementById("userInput");
+    userInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            const command = userInput.value;
+            processUserCommand(command);
+        }
+    });
+
+    function processUserCommand(command) {
+        const response = handleCommand(command);
+        if (response.newState !== undefined) {
+            gameState = response.newState;
+        }
+        appendResponseToTypewriter(response.message);
+
+        if (response.gemObtained) {
+            hasGem = true;
+            showGemImage();
+        } else {
+            hasGem = false;
+            hideGemImage();
+        }
+
+        
+        userInput.value = "";
+        typeWriter();
+    }
+    
+    
+
+  
+function appendResponseToTypewriter(message) {
+    container.innerHTML += "<br>👁🫦👁: " + message + "<br>";
+}
+
+function handleCommand(command) {
+    if (command === '101') {
+        return {
+            message: "A wild gem {our currency} appears on the screen. You now have a gem to receive your daily message from us. Today we have 3 messages available. Please choose wisely. Type 'options' to choose one out of 3 messages....",
+            newState: "hasGem",
+            gemObtained: true
+        };
+    } else if (command === 'options') {
+        return {
+            message: "We have 'silver', 'transparent', 'gold' today. Please type out your choice",
+            newState: "gemOptions",
+            gemObtained: false
+        };
+    } else if (command === 'silver')
+     {     showSilverImage();
+        hidegold();
+        hidetrans();
+        if (gameState === 'gemOptions') {
+            return {
+                message: "You've chosen 'silver'. A new beginning. Taking a risk.",
+                newState: "escaped",
+                gemObtained: false
+            };
+        } else {
+            return {
+                message: "You've already received your daily message. Unfortunately, we're out of gems. Please return tomorrow.",
+                newState: gameState,
+                gemObtained: false
+            };
+        }
+    } else if (command === 'transparent') {
+        hideSilverImage();
+        hidegold();
+        showtrans();
+        if (gameState === 'gemOptions') {
+            return {
+                message: "You've chosen 'transparent'. You are the star today...",
+                newState: "escaped",
+                gemObtained: false
+            };
+        } else {
+            return {
+                message: "You've already received your daily message. Unfortunately, we're out of gems. Please return tomorrow.",
+                newState: gameState,
+                gemObtained: false
+            };
+        }
+    } else if (command === 'gold') {
+        hideSilverImage();
+        showgold();
+        hidetrans();
+        if (gameState === 'gemOptions') {
+            return {
+                message: "You've chosen 'gold'. Luck is on your side.",
+                newState: "escaped",
+                gemObtained: false
+            };
+        } else {
+            
+            return {
+                message: "You've already received your daily message. Unfortunately, we're out of gems. Please return tomorrow.",
+                newState: gameState,
+                gemObtained: false
+            };
+        }
+    } else {
+        hideSilverImage();
+        hidegold();
+        hidetrans();
+        return {
+            message: "Seems like you are trying to " + command + ". Nothing special happens.",
+            newState: gameState,
+            gemObtained: false
+        };
+    }
+}
+
+
+function showGemImage() {
+    const gem = document.getElementById("gem");
+    gem.style.display = "block";
+}
+
+function hideGemImage() {
+    const gem = document.getElementById("gem");
+    gem.style.display = "none";
+}
+
+function showSilverImage() {
+    const silver = document.getElementById("silver");
+    silver.style.display = "block";
+}
+
+function hideSilverImage() {
+    const silver = document.getElementById("silver");
+    silver.style.display = "none";
+}
+
+function showgold() {
+    const gold = document.getElementById("gold");
+    gold.style.display = "block";
+}
+
+function hidegold() {
+    const gold = document.getElementById("gold");
+    gold.style.display = "none";
+}
+
+function showtrans() {
+    const trans = document.getElementById("trans");
+    trans.style.display = "block";
+}
+
+function hidetrans() {
+    const trans = document.getElementById("trans");
+    trans.style.display = "none";
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>TarotTypeWritter</title>
+</head>
+
+<body>
+
+    <div id="characterDiv" style="display: none;">
+        <img id="characterImage" src="" alt="Character Image" />
+    </div>
+    <div id="control" style="display: none;">
+        <img id="control" src="4.gif" alt="" />
+    </div>
+
+<div id="choiceOptions">
+    <div>
+        <input type="radio" name="ageCategory" id="under18Checkbox" class="checkbox" />
+        <label for="under18Checkbox">Under 18</label>
+
+        <input type="radio" name="ageCategory" id="over18Checkbox" class="checkbox" />
+        <label for="over18Checkbox">Over 18</label>
+    </div>
+
+    <div>
+        <input type="radio" name="styleCategory" id="uniqueHairstyleCheckbox" class="checkbox" />
+        <label for="uniqueHairstyleCheckbox">Unique Hairstyle</label>
+
+        <input type="radio" name="styleCategory" id="authenticCheckbox" class="checkbox" />
+        <label for="authenticCheckbox">Authentic</label>
+    </div>
+
+    <div>
+        <input type="radio" name="careerCategory" id="singleCheckbox" class="checkbox" />
+        <label for="singleCheckbox">Singer </label>
+        <input type="radio" name="careerCategory" id="RapperCheckbox" class="checkbox" />
+        <label for="RapperCheckbox">Rapper</label>
+        <input type="radio" name="careerCategory" id="socialMediaStarCheckbox" class="checkbox" />
+        <label for="socialMediaStarCheckbox">Social Media Star</label>
+    </div>
+ 
+
+    <button id="confirmChoicesButton" onclick="confirmChoices()">Confirm Choices</button>
+</div>
+
+    <div id="second">
+        <div id="stylebox">
+    <div id="type"></div>
+</div>
+    <div id="mascot">
+        <img id="moon" src="./4.gif">
+    </div>
+
+</div>
+
+<div id="bg">
+    <div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
+</div>
+<script src="./main.js" defer></script>
+
+</body>
+</html>
